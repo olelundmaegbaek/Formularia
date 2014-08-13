@@ -1,19 +1,13 @@
 package dk.maegbaek.server.formularia;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.EditText;
-import android.widget.Toast;
-
 
 public class WebFormularia extends Activity {
 
@@ -47,14 +41,16 @@ public class WebFormularia extends Activity {
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.action_settings:
-                Toast.makeText(getBaseContext(), "Indstillinger", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                WebFormularia.this.finish();
                 break;
 
-            case R.id.action_quit:
-                //kode til at kalde popup med passcontrol
-                Toast.makeText(getBaseContext(), "Lukker program ned", Toast.LENGTH_SHORT).show();
-                finish();
-                break;
+            //case R.id.action_quit:
+            //    //kode til at kalde popup med passcontrol
+            //    Toast.makeText(getBaseContext(), "Lukker program ned", Toast.LENGTH_SHORT).show();
+            //    finish();
+            //    break;
 
         }
         return true;

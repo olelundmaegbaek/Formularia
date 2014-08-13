@@ -1,0 +1,14 @@
+<resources>
+        <string name="title_activity_login">Log in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Kodeord</string>
+    <string name="action_sign_in">Log in</string>
+    <string name="action_sign_in_short">Log in</string>
+
+    <string name="error_invalid_email">Email ikke korrekt</string>
+    <string name="error_invalid_password">Kodeord er for kort</string>
+    <string name="error_incorrect_password">Kodeord er forkert</string>
+    <string name="error_field_required">Felt skal udfyldes</string>
+</resources>
