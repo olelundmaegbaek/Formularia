@@ -32,7 +32,7 @@ public class SettingsActivity extends Activity {
             android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(0);
             getParent().finish();
-            return true;
+            //return true;
         }
         return super.onOptionsItemSelected(item);
     }

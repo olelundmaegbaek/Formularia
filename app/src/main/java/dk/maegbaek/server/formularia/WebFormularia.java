@@ -3,7 +3,6 @@ package dk.maegbaek.server.formularia;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
@@ -23,7 +22,7 @@ public class WebFormularia extends Activity {
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.loadUrl("http://waitingroom.heroku.com/tablet");
         }
-
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -39,19 +38,11 @@ public class WebFormularia extends Activity {
         //int id = item.getItemId();
         //if (id == R.id.action_settings) {
         super.onOptionsItemSelected(item);
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
-                WebFormularia.this.finish();
-                break;
-
-            //case R.id.action_quit:
-            //    //kode til at kalde popup med passcontrol
-            //    Toast.makeText(getBaseContext(), "Lukker program ned", Toast.LENGTH_SHORT).show();
-            //    finish();
-            //    break;
-
+        if (item.getItemId()==R.id.action_settings) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            WebFormularia.this.finish();
+        } else {throw new IllegalArgumentException("Ukendt menu punkt"+item.getItemId());
         }
         return true;
     }
