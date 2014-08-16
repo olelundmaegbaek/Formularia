@@ -17,9 +17,8 @@ public class WebFormularia extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_formularia);
         setmWebView();
-        }
+    }
 
-    
     private void setmWebView() {
         mWebView = (WebView) findViewById(R.id.activity_main_webview);
         mWebView.setWebViewClient(new WebViewClient());
@@ -42,11 +41,12 @@ public class WebFormularia extends Activity {
         //int id = item.getItemId();
         //if (id == R.id.action_settings) {
         super.onOptionsItemSelected(item);
-        if (item.getItemId()==R.id.action_settings) {
+        if (item.getItemId() == R.id.action_settings) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             WebFormularia.this.finish();
-        } else {throw new IllegalArgumentException("Ukendt menu punkt"+item.getItemId());
+        } else {
+            throw new IllegalArgumentException("Ukendt menu punkt" + item.getItemId());
         }
         return true;
     }
