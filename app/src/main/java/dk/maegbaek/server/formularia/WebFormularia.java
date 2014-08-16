@@ -19,6 +19,7 @@ public class WebFormularia extends Activity {
         setmWebView();
         }
 
+    
     private void setmWebView() {
         mWebView = (WebView) findViewById(R.id.activity_main_webview);
         mWebView.setWebViewClient(new WebViewClient());
