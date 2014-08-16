@@ -16,13 +16,16 @@ public class WebFormularia extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_formularia);
+        setmWebView();
+        }
+
+    private void setmWebView() {
         mWebView = (WebView) findViewById(R.id.activity_main_webview);
-        // Enable Javascript
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.loadUrl("http://waitingroom.heroku.com/tablet");
-        }
-    
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
