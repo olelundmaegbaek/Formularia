@@ -1,18 +1,54 @@
 package dk.maegbaek.server.formularia;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class SettingsActivity extends Activity {
+    private final static String URL_PATTERN = "^(https?:\\/\\/)?([\\da-zA-Z\\.-]+)\\.([a-zA-Z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        final EditText websiteField = (EditText) findViewById(R.id.website);
+        websiteField.setText(Settings.getWebsite(this));
+
+        Button saveButton = (Button) findViewById(R.id.save_button);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String websiteUrl = websiteField.getText().toString();
+                if (isValid(websiteUrl)) {
+                    websiteUrl = ensureAbsolutePath(websiteUrl);
+                    Settings.setWebsite(SettingsActivity.this, websiteUrl);
+                    Intent intent = new Intent(SettingsActivity.this, WebFormularia.class);
+                    startActivity(intent);
+                    SettingsActivity.this.finish();
+                }else{
+                    websiteField.requestFocus();
+                    websiteField.setError(getString(R.string.error_invalid_website_url));
+                }
+            }
+        });
     }
 
+    private String ensureAbsolutePath(String websiteUrl) {
+        if (!websiteUrl.startsWith("http")){
+            websiteUrl = "http://" + websiteUrl;
+        }
+        return websiteUrl;
+    }
+
+    private boolean isValid(String websiteUrl) {
+        return websiteUrl.matches(URL_PATTERN);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

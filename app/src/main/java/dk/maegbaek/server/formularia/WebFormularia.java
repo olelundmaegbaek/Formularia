@@ -16,6 +16,7 @@ public class WebFormularia extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_formularia);
+        Settings.setDefaultSettings(this);
         setmWebView();
     }
 
@@ -23,7 +24,7 @@ public class WebFormularia extends Activity {
         mWebView = (WebView) findViewById(R.id.activity_main_webview);
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.loadUrl("http://waitingroom.heroku.com/tablet");
+        mWebView.loadUrl(Settings.getWebsite(this));
     }
 
     @Override
