@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 public class Settings {
     private final static String PREFERENCES_NAME = "FormulariaPreferences";
     private final static String WEBSITE_KEY = "website";
+    private final static String FULLSCREEN_KEY = "fullscreen";
     private final static String DEFAULT_WEBSITE_URL = "http://waitingroom.heroku.com/tablet";
 
     /**
@@ -33,6 +34,16 @@ public class Settings {
     public static void setWebsite(Activity activity, String websiteUrl) {
         SharedPreferences.Editor editor = getPreferences(activity).edit();
         editor.putString(WEBSITE_KEY, websiteUrl);
+        editor.commit();
+    }
+
+    public static boolean isFullscreen(Activity activity) {
+        return getPreferences(activity).getBoolean(FULLSCREEN_KEY, true);
+    }
+
+    public static void setFullscreen(SettingsActivity activity, boolean fullscreen) {
+        SharedPreferences.Editor editor = getPreferences(activity).edit();
+        editor.putBoolean(FULLSCREEN_KEY, fullscreen);
         editor.commit();
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -25,6 +26,21 @@ public class WebFormularia extends Activity {
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.loadUrl(Settings.getWebsite(this));
+        setFullscreenMode(mWebView);
+    }
+
+    private void setFullscreenMode(WebView mWebView) {
+        if (Settings.isFullscreen(this)) {
+            mWebView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | WebView.SYSTEM_UI_FLAG_IMMERSIVE
+                    | WebView.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+        }else{
+            mWebView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        }
     }
 
     @Override

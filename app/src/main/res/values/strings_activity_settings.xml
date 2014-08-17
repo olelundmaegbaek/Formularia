@@ -1,6 +1,7 @@
 <resources>
     <!-- Strings related to settings -->
     <string name="label_website">Webside URL</string>
+    <string name="label_fullscreen">Fuldskærm</string>
     <string name="hint_website">Indtast webside URL</string>
     <string name="action_save">Gem</string>
 

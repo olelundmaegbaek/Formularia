@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 public class SettingsActivity extends Activity {
@@ -20,21 +21,34 @@ public class SettingsActivity extends Activity {
         final EditText websiteField = (EditText) findViewById(R.id.website);
         websiteField.setText(Settings.getWebsite(this));
 
+        CheckBox fullScreenCheckBox = (CheckBox) findViewById(R.id.fullscreen);
+        fullScreenCheckBox.setChecked(Settings.isFullscreen(this));
+
+        createButton(websiteField, fullScreenCheckBox);
+    }
+
+    private void createButton(final EditText websiteField, final CheckBox fullScreenCheckBox) {
         Button saveButton = (Button) findViewById(R.id.save_button);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String websiteUrl = websiteField.getText().toString();
+                boolean fullscreen = fullScreenCheckBox.isChecked();
                 if (isValid(websiteUrl)) {
                     websiteUrl = ensureAbsolutePath(websiteUrl);
                     Settings.setWebsite(SettingsActivity.this, websiteUrl);
-                    Intent intent = new Intent(SettingsActivity.this, WebFormularia.class);
-                    startActivity(intent);
-                    SettingsActivity.this.finish();
+                    Settings.setFullscreen(SettingsActivity.this, fullscreen);
+                    displayWebsite();
                 }else{
                     websiteField.requestFocus();
                     websiteField.setError(getString(R.string.error_invalid_website_url));
                 }
+            }
+
+            private void displayWebsite() {
+                Intent intent = new Intent(SettingsActivity.this, WebFormularia.class);
+                startActivity(intent);
+                SettingsActivity.this.finish();
             }
         });
     }
