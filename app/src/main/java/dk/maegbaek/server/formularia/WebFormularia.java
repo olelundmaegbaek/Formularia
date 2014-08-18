@@ -30,7 +30,9 @@ public class WebFormularia extends Activity {
     }
 
     private void setFullscreenMode(WebView mWebView) {
-        if (Settings.isFullscreen(this)) {
+        if (Settings.isFullscreen(this))
+        //TODO:Bundbar stadig tilstede.
+        {
             mWebView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                     | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -61,7 +63,7 @@ public class WebFormularia extends Activity {
         if (item.getItemId() == R.id.action_settings) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-            WebFormularia.this.finish();
+            //WebFormularia.this.finish();
         } else {
             throw new IllegalArgumentException("Ukendt menu punkt" + item.getItemId());
         }

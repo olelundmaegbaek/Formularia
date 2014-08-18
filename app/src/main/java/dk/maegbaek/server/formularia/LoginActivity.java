@@ -35,12 +35,8 @@ import java.util.List;
  */
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "ole@maegbaek.dk:1234", "bar@example.com:world"
+            "ole@maegbaek.dk:1234"
     };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -223,6 +219,16 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
 
     }
 
+    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
+        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(LoginActivity.this,
+                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
+
+        mEmailView.setAdapter(adapter);
+    }
+
+
     private interface ProfileQuery {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
@@ -231,16 +237,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
 
         int ADDRESS = 0;
         int IS_PRIMARY = 1;
-    }
-
-
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(LoginActivity.this,
-                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
-        mEmailView.setAdapter(adapter);
     }
 
     /**
@@ -259,13 +255,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
 
         @Override
         protected Boolean doInBackground(Void... params) {
-
-         /*   try {
-                // Simulate network access.
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                return false;
-            }*/
 
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
@@ -287,7 +276,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
                 finish();
                 Intent myIntent = new Intent(LoginActivity.this,SettingsActivity.class);
                 LoginActivity.this.startActivity(myIntent);
-                LoginActivity.this.finish();
+                //TODO: Rette samtlige this.finish, virker ikke ordentligt. Dvs. det er svært at lukke en android app, og det er jo meningen.
+                //LoginActivity.this.finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

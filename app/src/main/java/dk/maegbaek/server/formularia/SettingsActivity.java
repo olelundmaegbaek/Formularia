@@ -48,7 +48,7 @@ public class SettingsActivity extends Activity {
             private void displayWebsite() {
                 Intent intent = new Intent(SettingsActivity.this, WebFormularia.class);
                 startActivity(intent);
-                SettingsActivity.this.finish();
+                //SettingsActivity.this.finish();
             }
         });
     }
