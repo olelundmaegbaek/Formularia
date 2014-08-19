@@ -8,6 +8,7 @@ public class Settings {
     private final static String PREFERENCES_NAME = "FormulariaPreferences";
     private final static String WEBSITE_KEY = "website";
     private final static String FULLSCREEN_KEY = "fullscreen";
+    private final static String ONBOOT_KEY = "onboot";
     private final static String DEFAULT_WEBSITE_URL = "http://waitingroom.heroku.com/tablet";
 
     /**
@@ -46,4 +47,16 @@ public class Settings {
         editor.putBoolean(FULLSCREEN_KEY, fullscreen);
         editor.commit();
     }
+
+    public static boolean isOnBoot(Activity activity) {
+        return getPreferences(activity).getBoolean(ONBOOT_KEY, true);
+    }
+
+    public static void setOnboot(SettingsActivity activity, boolean onboot) {
+        SharedPreferences.Editor editor = getPreferences(activity).edit();
+        editor.putBoolean(ONBOOT_KEY, onboot);
+        editor.commit();
+    }
+
+
 }

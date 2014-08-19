@@ -36,7 +36,7 @@ import java.util.List;
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
 
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "ole@maegbaek.dk:1234"
+            "test@test.dk:1234"
     };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -140,12 +140,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
         }
     }
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 3;
     }
 
@@ -276,8 +274,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
                 finish();
                 Intent myIntent = new Intent(LoginActivity.this,SettingsActivity.class);
                 LoginActivity.this.startActivity(myIntent);
-                //TODO: Rette samtlige this.finish, virker ikke ordentligt. Dvs. det er svært at lukke en android app, og det er jo meningen.
-                //LoginActivity.this.finish();
+                LoginActivity.this.finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

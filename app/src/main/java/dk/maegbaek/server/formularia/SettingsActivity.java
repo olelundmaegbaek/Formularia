@@ -24,20 +24,26 @@ public class SettingsActivity extends Activity {
         CheckBox fullScreenCheckBox = (CheckBox) findViewById(R.id.fullscreen);
         fullScreenCheckBox.setChecked(Settings.isFullscreen(this));
 
-        createButton(websiteField, fullScreenCheckBox);
+        CheckBox onBootCheckBox = (CheckBox) findViewById(R.id.onboot);
+        onBootCheckBox.setChecked(Settings.isOnBoot(this));
+
+        createButton(websiteField, fullScreenCheckBox, onBootCheckBox);
     }
 
-    private void createButton(final EditText websiteField, final CheckBox fullScreenCheckBox) {
+    private void createButton(final EditText websiteField, final CheckBox fullScreenCheckBox, final CheckBox onBootCheckBox) {
         Button saveButton = (Button) findViewById(R.id.save_button);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String websiteUrl = websiteField.getText().toString();
                 boolean fullscreen = fullScreenCheckBox.isChecked();
+                boolean onboot = onBootCheckBox.isChecked();
+
                 if (isValid(websiteUrl)) {
                     websiteUrl = ensureAbsolutePath(websiteUrl);
                     Settings.setWebsite(SettingsActivity.this, websiteUrl);
                     Settings.setFullscreen(SettingsActivity.this, fullscreen);
+                    Settings.setOnboot(SettingsActivity.this, onboot);
                     displayWebsite();
                 }else{
                     websiteField.requestFocus();
@@ -48,7 +54,6 @@ public class SettingsActivity extends Activity {
             private void displayWebsite() {
                 Intent intent = new Intent(SettingsActivity.this, WebFormularia.class);
                 startActivity(intent);
-                //SettingsActivity.this.finish();
             }
         });
     }
@@ -73,16 +78,14 @@ public class SettingsActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // Handle action bar item clicks here.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            SettingsActivity.this.finish();
-            android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(0);
-            getParent().finish();
-            //return true;
+            Intent intent = new Intent(getApplicationContext(), WebFormularia.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("EXIT", true);
+            startActivity(intent);
+
         }
         return super.onOptionsItemSelected(item);
     }

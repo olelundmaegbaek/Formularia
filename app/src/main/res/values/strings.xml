@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Formularia</string>
-    <string name="action_settings">Indstillinger</string>
+    <string name="action_settings">Administration</string>
     <string name="action_quit">Luk program</string>
 
 

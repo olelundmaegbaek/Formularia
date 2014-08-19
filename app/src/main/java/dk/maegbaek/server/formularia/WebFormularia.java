@@ -18,7 +18,13 @@ public class WebFormularia extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_formularia);
         Settings.setDefaultSettings(this);
+        setFullscreenMode();
         setmWebView();
+
+        //Tjekker om mainactivity skal lukkes. Det er grimt, men virker.
+        if (getIntent().getBooleanExtra("EXIT", false)) {
+            finish();
+        }
     }
 
     private void setmWebView() {
@@ -26,22 +32,22 @@ public class WebFormularia extends Activity {
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.loadUrl(Settings.getWebsite(this));
-        setFullscreenMode(mWebView);
+
     }
 
-    private void setFullscreenMode(WebView mWebView) {
-        if (Settings.isFullscreen(this))
-        //TODO:Bundbar stadig tilstede.
-        {
-            mWebView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | WebView.SYSTEM_UI_FLAG_IMMERSIVE
-                    | WebView.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-        }else{
-            mWebView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+    private void setFullscreenMode() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            if (Settings.isFullscreen(this)) {
+                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE);
+                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+            } else {
+                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            }
         }
     }
 
@@ -63,7 +69,7 @@ public class WebFormularia extends Activity {
         if (item.getItemId() == R.id.action_settings) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-            //WebFormularia.this.finish();
+            //    WebFormularia.this.finish();
         } else {
             throw new IllegalArgumentException("Ukendt menu punkt" + item.getItemId());
         }
