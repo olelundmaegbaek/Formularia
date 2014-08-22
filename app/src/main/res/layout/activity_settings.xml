@@ -59,7 +59,7 @@
             <Button
                 android:id="@+id/save_button"
                 style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/abc_action_button_min_width"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_save"
