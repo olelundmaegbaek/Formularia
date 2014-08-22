@@ -31,13 +31,13 @@ public class WebFormularia extends Activity {
         mWebView = (WebView) findViewById(R.id.activity_main_webview);
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.loadUrl(Settings.getWebsite(this));
+        mWebView.loadUrl(Settings.getWebsite(getApplicationContext()));
 
     }
 
     private void setFullscreenMode() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-            if (Settings.isFullscreen(this)) {
+            if (Settings.isFullscreen(getApplicationContext())) {
                 getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
                 getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
                 getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);

@@ -56,6 +56,4 @@ public class Settings {
         editor.putBoolean(ONBOOT_KEY, onboot);
         editor.commit();
     }
-
-
 }
