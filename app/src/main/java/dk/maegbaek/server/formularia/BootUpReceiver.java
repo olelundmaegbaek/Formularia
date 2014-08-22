@@ -11,11 +11,11 @@ public class BootUpReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //TODO: Tjek if Settings.isOnBoot
-        //if (Settings.isOnBoot(this)){}
-        Intent i = new Intent(context, WebFormularia.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(i);
+        if (Settings.isOnBoot(context)) {
+            Intent i = new Intent(context, WebFormularia.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(i);
+        }
     }
 
 }

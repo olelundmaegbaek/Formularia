@@ -17,7 +17,7 @@ public class WebFormularia extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_formularia);
-        Settings.setDefaultSettings(this);
+        Settings.setDefaultSettings(getApplicationContext());
         setFullscreenMode();
         setmWebView();
 

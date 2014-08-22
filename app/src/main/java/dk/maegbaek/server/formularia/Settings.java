@@ -1,6 +1,5 @@
 package dk.maegbaek.server.formularia;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -13,10 +12,10 @@ public class Settings {
 
     /**
      * Sets and persists default settings it they have not previously been set
-     * @param activity
+     * @param context
      */
-    public static void setDefaultSettings(Activity activity){
-        SharedPreferences preferences = getPreferences(activity);
+    public static void setDefaultSettings(Context context){
+        SharedPreferences preferences = getPreferences(context);
         if (preferences.getString(WEBSITE_KEY, null) == null){
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString(WEBSITE_KEY, DEFAULT_WEBSITE_URL);
@@ -24,36 +23,36 @@ public class Settings {
         }
     }
 
-    private static SharedPreferences getPreferences(Activity activity) {
-        return activity.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
+    private static SharedPreferences getPreferences(Context context) {
+        return context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
     }
 
-    public static String getWebsite(Activity activity){
-        return getPreferences(activity).getString(WEBSITE_KEY, null);
+    public static String getWebsite(Context context){
+        return getPreferences(context).getString(WEBSITE_KEY, null);
     }
 
-    public static void setWebsite(Activity activity, String websiteUrl) {
-        SharedPreferences.Editor editor = getPreferences(activity).edit();
+    public static void setWebsite(Context context, String websiteUrl) {
+        SharedPreferences.Editor editor = getPreferences(context).edit();
         editor.putString(WEBSITE_KEY, websiteUrl);
         editor.commit();
     }
 
-    public static boolean isFullscreen(Activity activity) {
-        return getPreferences(activity).getBoolean(FULLSCREEN_KEY, true);
+    public static boolean isFullscreen(Context context) {
+        return getPreferences(context).getBoolean(FULLSCREEN_KEY, true);
     }
 
-    public static void setFullscreen(SettingsActivity activity, boolean fullscreen) {
-        SharedPreferences.Editor editor = getPreferences(activity).edit();
+    public static void setFullscreen(Context context, boolean fullscreen) {
+        SharedPreferences.Editor editor = getPreferences(context).edit();
         editor.putBoolean(FULLSCREEN_KEY, fullscreen);
         editor.commit();
     }
 
-    public static boolean isOnBoot(Activity activity) {
-        return getPreferences(activity).getBoolean(ONBOOT_KEY, true);
+    public static boolean isOnBoot(Context context) {
+        return getPreferences(context).getBoolean(ONBOOT_KEY, true);
     }
 
-    public static void setOnboot(SettingsActivity activity, boolean onboot) {
-        SharedPreferences.Editor editor = getPreferences(activity).edit();
+    public static void setOnboot(Context context, boolean onboot) {
+        SharedPreferences.Editor editor = getPreferences(context).edit();
         editor.putBoolean(ONBOOT_KEY, onboot);
         editor.commit();
     }

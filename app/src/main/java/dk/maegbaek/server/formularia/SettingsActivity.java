@@ -1,6 +1,7 @@
 package dk.maegbaek.server.formularia;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,15 +18,16 @@ public class SettingsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        Context applicationContext = getApplicationContext();
 
         final EditText websiteField = (EditText) findViewById(R.id.website);
-        websiteField.setText(Settings.getWebsite(this));
+        websiteField.setText(Settings.getWebsite(applicationContext));
 
         CheckBox fullScreenCheckBox = (CheckBox) findViewById(R.id.fullscreen);
-        fullScreenCheckBox.setChecked(Settings.isFullscreen(this));
+        fullScreenCheckBox.setChecked(Settings.isFullscreen(applicationContext));
 
         CheckBox onBootCheckBox = (CheckBox) findViewById(R.id.onboot);
-        onBootCheckBox.setChecked(Settings.isOnBoot(this));
+        onBootCheckBox.setChecked(Settings.isOnBoot(applicationContext));
 
         createButton(websiteField, fullScreenCheckBox, onBootCheckBox);
     }
@@ -40,10 +42,11 @@ public class SettingsActivity extends Activity {
                 boolean onboot = onBootCheckBox.isChecked();
 
                 if (isValid(websiteUrl)) {
+                    Context applicationContext = getApplicationContext();
                     websiteUrl = ensureAbsolutePath(websiteUrl);
-                    Settings.setWebsite(SettingsActivity.this, websiteUrl);
-                    Settings.setFullscreen(SettingsActivity.this, fullscreen);
-                    Settings.setOnboot(SettingsActivity.this, onboot);
+                    Settings.setWebsite(applicationContext, websiteUrl);
+                    Settings.setFullscreen(applicationContext, fullscreen);
+                    Settings.setOnboot(applicationContext, onboot);
                     displayWebsite();
                 }else{
                     websiteField.requestFocus();
