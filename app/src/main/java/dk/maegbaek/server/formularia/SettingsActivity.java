@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -30,6 +28,7 @@ public class SettingsActivity extends Activity {
         onBootCheckBox.setChecked(Settings.isOnBoot(applicationContext));
 
         createButton(websiteField, fullScreenCheckBox, onBootCheckBox);
+        createButtonSwitch();
     }
 
     private void createButton(final EditText websiteField, final CheckBox fullScreenCheckBox, final CheckBox onBootCheckBox) {
@@ -61,6 +60,20 @@ public class SettingsActivity extends Activity {
         });
     }
 
+    private void createButtonSwitch() {
+        Button switchButton = (Button) findViewById(R.id.switch_button);
+        switchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getPackageManager().clearPackagePreferredActivities(getPackageName());
+                final Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent);
+            }
+        });
+    }
+
     private String ensureAbsolutePath(String websiteUrl) {
         if (!websiteUrl.startsWith("http")){
             websiteUrl = "http://" + websiteUrl;
@@ -72,24 +85,24 @@ public class SettingsActivity extends Activity {
         return websiteUrl.matches(URL_PATTERN);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.settings, menu);
-        return true;
-    }
+// 3/9 14 : UDKOMMENTERET PGA OVERGANG TIL LAUNCHER
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.settings, menu);
+//        return true;
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(getApplicationContext(), WebFormularia.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra("EXIT", true);
-            startActivity(intent);
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here.
+//        int id = item.getItemId();
+//        if (id == R.id.action_settings) {
+//            Intent intent = new Intent(getApplicationContext(), WebFormularia.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            intent.putExtra("EXIT", true);
+//            startActivity(intent);
 
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 }

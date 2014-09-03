@@ -22,9 +22,11 @@ public class WebFormularia extends Activity {
         setmWebView();
 
         //Tjekker om mainactivity skal lukkes. Det er grimt, men virker.
-        if (getIntent().getBooleanExtra("EXIT", false)) {
-            finish();
-        }
+        // 3/9 14 : UDKOMMENTERET PGA OVERGANG TIL LAUNCHER
+        //TODO: Rense kode efter overgang til launcher.
+        // if (getIntent().getBooleanExtra("EXIT", false)) {
+        //    finish();
+        //}
     }
 
     private void setmWebView() {
@@ -70,7 +72,6 @@ public class WebFormularia extends Activity {
         if (item.getItemId() == R.id.action_settings) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-            //    WebFormularia.this.finish();
         } else {
             throw new IllegalArgumentException("Ukendt menu punkt" + item.getItemId());
         }

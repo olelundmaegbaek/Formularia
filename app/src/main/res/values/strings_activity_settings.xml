@@ -5,6 +5,6 @@
     <string name="label_onboot">Start ved opstart</string>
     <string name="hint_website">Indtast webside URL</string>
     <string name="action_save">Gem</string>
-
+    <string name="action_switch">Skift startskærm</string>
     <string name="error_invalid_website_url">Den indtastede webside er ikke valid</string>
 </resources>
