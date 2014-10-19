@@ -3,9 +3,7 @@ package dk.maegbaek.server.formularia;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -16,6 +14,7 @@ public class WebFormularia extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         setContentView(R.layout.activity_web_formularia);
         Settings.setDefaultSettings(getApplicationContext());
         setFullscreenMode();
@@ -34,6 +33,7 @@ public class WebFormularia extends Activity {
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.loadUrl(Settings.getWebsite(getApplicationContext()));
+        mWebView.setFitsSystemWindows(true);
 
     }
 
