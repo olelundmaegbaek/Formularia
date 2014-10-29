@@ -1,11 +1,17 @@
 package dk.maegbaek.server.formularia;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.*;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.view.Menu;
+import android.view.View;
+import android.widget.Toast;
 
 public class WebFormularia extends Activity {
 
@@ -14,26 +20,51 @@ public class WebFormularia extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
         setContentView(R.layout.activity_web_formularia);
-        Settings.setDefaultSettings(getApplicationContext());
-        setFullscreenMode();
-        setmWebView();
+        if (checkDeviceIsOnline(this))
+        {
+            Settings.setDefaultSettings(getApplicationContext());
+            setFullscreenMode();
+            setmWebView();
+        }
+        else
+        {
+            Toast.makeText(WebFormularia.this,
+                    "Du er ikke forbundet til internettet, prøv at genindlæse i øverste menu", Toast.LENGTH_LONG).show();
+        }
+
 
         //Tjekker om mainactivity skal lukkes. Det er grimt, men virker.
         // 3/9 14 : UDKOMMENTERET PGA OVERGANG TIL LAUNCHER
         //TODO: Rense kode efter overgang til launcher.
-        // if (getIntent().getBooleanExtra("EXIT", false)) {
+        // if (getIntent().getBoeaolnExtra("EXIT", false)) {
         //    finish();
         //}
     }
 
-    private void setmWebView() {
+    public static boolean checkDeviceIsOnline(Context context)
+    {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting())
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
+
+    public void setmWebView() {
         mWebView = (WebView) findViewById(R.id.activity_main_webview);
         mWebView.setWebViewClient(new WebViewClient());
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.loadUrl(Settings.getWebsite(getApplicationContext()));
+        mWebView.getSettings().setJavaScriptEnabled(true); //enable javascript
+        mWebView.getSettings().setBuiltInZoomControls(true);  //enable zoom
+        mWebView.getSettings().setDisplayZoomControls(false);
+        mWebView.getSettings().setLoadWithOverviewMode(true);
+        mWebView.getSettings().setUseWideViewPort(true);
         mWebView.setFitsSystemWindows(true);
+        mWebView.loadUrl(Settings.getWebsite(getApplicationContext()));
 
     }
 
@@ -72,7 +103,20 @@ public class WebFormularia extends Activity {
         if (item.getItemId() == R.id.action_settings) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-        } else {
+        }
+        if (item.getItemId() == R.id.action_reload) {
+            if (checkDeviceIsOnline(this))
+            {
+                mWebView.loadUrl("javascript:window.location.reload(true)" );
+            }
+            else
+            {
+                Toast.makeText(WebFormularia.this,
+                        "Du er ikke forbundet til internettet, prøv at genindlæse i øverste menu", Toast.LENGTH_LONG).show();
+            }
+
+        }
+        else {
             throw new IllegalArgumentException("Ukendt menu punkt" + item.getItemId());
         }
         return true;
