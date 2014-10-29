@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Predoc</string>
+    <string name="app_name">Predok</string>
     <string name="action_settings">Administration</string>
     <string name="action_reload">Genindlæs</string>
 
